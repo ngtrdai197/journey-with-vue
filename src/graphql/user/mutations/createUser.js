@@ -1,5 +1,5 @@
 import gql from 'graphql-tag'
-import { FETCH_USERS } from '../queries/fetchUser'
+import { fetchUsers } from '../queries/fetchUser'
 
 export const createUserMutation = (username, fullName, password) => ({
   mutation: gql`
@@ -32,11 +32,11 @@ export const createUserMutation = (username, fullName, password) => ({
   update: (store, { data }) => {
     const { createNewUser } = data
     const dataCache = store.readQuery({
-      query: FETCH_USERS,
+      query: fetchUsers,
     })
     ;(dataCache.fetchUsers || []).push(createNewUser)
     store.writeQuery({
-      query: FETCH_USERS,
+      query: fetchUsers,
       dataCache,
     })
   },
